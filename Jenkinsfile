@@ -31,13 +31,13 @@ pipeline {
             }
         }
 
-        stage('Publish TestNG & Allure Reports') {
-            post {
-                always {
-                    echo "Publishing reports"
-                    junit '**/target/surefire-reports/*.xml'  // TestNG Reports
-                    allure includeProperties: false, results: [[path: './allure-results']]
-                }
+       stage('Publish Reports') {
+                   post {
+                       always {
+                           echo "Publishing TestNG and JUnit reports"
+                           junit '**/target/surefire-reports/*.xml'  // Publish JUnit test results
+                           allure includeProperties: false, results: [[path: './allure-results']]  // Publish Allure report
+                       }
             }
         }
     }
