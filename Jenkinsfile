@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     tools {
-        jdk 'JDK_17'  // Ensure this matches your JDK configuration in Jenkins
-        maven 'Maven_3.9.4'  // Ensure this matches your Maven configuration in Jenkins
+        jdk 'JDK_11'  // Use the JDK configured in Jenkins
+        maven 'Maven_3.9.4'  // Use Maven configured in Jenkins
     }
 
     environment {
@@ -15,15 +15,11 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 git branch: 'main', url: 'https://github.com/Rashedujjaman-rion/APITest_RestAssured.git'
-                script {
-                    echo "Code checked out successfully!"
-                }
             }
         }
 
         stage('Install Dependencies') {
             steps {
-                echo "Running Maven install"
                 bat 'mvn clean install -DskipTests'
             }
         }
@@ -31,7 +27,7 @@ pipeline {
         stage('Run API Tests') {
             steps {
                 echo "Running tests with Maven"
-                bat 'mvn test -Dtest=UserTests'  // Specify your test class here if needed
+                bat 'mvn test'  // Ensure that this command is executing correctly
             }
         }
 
